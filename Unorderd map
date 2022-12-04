@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <list>
+using namespace std;
+
+// Used the hash PowerPoint slides, page 80, for reference
+class HashTable{
+
+private:
+    static const int tableSize = 100;
+    float loadFactor = 0.75;
+    int numEntries = 0;
+
+    // This is the actual hash table. I created a pair of strings since each spot in the array should hold the book name
+    // and genre. I used the list stl in order to create linked list when there is a collision
+    // I used the Hash Table PowerPoint slide 80 and the module 2 list PowerPoint in order to create
+    // the table
+    list<pair<string, string>> table[tableSize];
+
+public:
+    int hash(string key);
+    void insert(string key, string value);
+    void display();
+};
+
+// This function gets the hash value of the book title
+int HashTable::hash(string key) {
+
+    int index = 0;
+
+    // This finds the total ASCII value of the book title
+    for(int i = 0; i < key.size(); i++){
+        index = index + int(key[i]);
+    }
+
+    // This next line will reduce the hash to get an index and the function will return that value
+    return index%10;
+}
+
+void HashTable::insert(string key, string value) {
+
+    // Finds the hash value of the book title and reduces it to an index
+    int index = hash(key);
+    table[index].push_back(make_pair(key, value));
+
+    // Updating the amount of entries that are filled up
+    numEntries++;
+}
+
+
+void HashTable::display() {
+    for(int i = 0; i < tableSize; i++){
+        cout << i << " ";
+        for(auto it = table[i].begin(); it != table[i].end(); ++it){
+            cout << it->first << " " << it->second << "---> ";
+        }
+        cout << endl;
+    }
+}
+
+
+int main() {
+    HashTable t;
+    t.insert("Hunger Games", "scary");
+    t.insert("Hunger Games", "happy");
+    t.display();
+
+    return 0;
+}
