@@ -43,7 +43,7 @@ int main(){
     ifstream inputFile;
     // windows file path
     //string filename = "C:\\Users\\mihir\\Downloads\\books1.csv";
-    // mac file path
+    // file path
     string filename = "./books1.csv";
     cout<<"opening file"<<endl;
     // parse the csv file
@@ -74,7 +74,7 @@ int main(){
         cout<<"2). Search with an Unordered Map"<<endl;
         cout<<"3). Compare two map types"<<endl;
         cout<<"4). Insert a different book"<<endl;
-        cout<<"5). Search with an Ordered Map"<<endl;
+        cout<<"5). Exit"<<endl;
         cout<<"Enter a menu option: ";
         getline(cin, menu_Option);
         menuOption = stoi(menu_Option);

@@ -69,7 +69,7 @@ class BooksRelated{
             }
 
          // printing out the related books
-        cout<<"The books that are related to "<<source_book<<" are using "<<method<<" :"<<endl;
+        cout<<"The books that are related to "<<source_book<<" using an "<<method<<" :"<<endl;
         if(related_book.size()==0){
             cout<<"There are no related books"<<endl;
         }
