@@ -25,6 +25,7 @@ public:
     int hash(string key);
     void insert(string key, string value);
     set<string> get_set(string key);
+    bool validInput(string key);
 };
 
 // This function gets the hash value of the book title
@@ -60,11 +61,9 @@ void unordered_map::insert(string key, string value) {
 
 set<string> unordered_map::get_set(string key) {
     set<string> s1;
+    
     // This goes throughout the length of the table
     for(int i = 0; i < tableSize; i++){
-
-        // Printing out i so that you know what index you are at
-        //cout << i << " ";
 
         // Goes through the linked list at each index of the table and the book title is printed
         for(auto it = table[i].begin(); it != table[i].end(); ++it){
@@ -74,8 +73,18 @@ set<string> unordered_map::get_set(string key) {
             }
            
         }
-        //cout << endl;
     }
     return s1;
+}
+
+bool unordered_map::validInput(string key) {
+    for(int i = 0; i < tableSize; i++){
+        for(auto it = table[i].begin(); it != table[i].end(); ++it){
+            if(it->first == key){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
