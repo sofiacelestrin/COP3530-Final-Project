@@ -37,12 +37,12 @@ class dataScrapper{
                 // add genre to map bg
                 bg[title].insert(genre);
                 bg1.insert(title,genre);
-                cout<<"adding "<< title<<" : "<< genre<<endl;
+                //cout<<"adding "<< title<<" : "<< genre<<endl;
                 // add to ordred map
                 gb[genre].insert(title);
                 // add to unordred map
                 gb1.insert(genre,title);
-                cout<<"adding "<< genre<<" : "<< title<<endl;
+                //cout<<"adding "<< genre<<" : "<< title<<endl;
                 // get remaining genres
                 while(getline(genres, genre, ',')){
 
@@ -50,10 +50,10 @@ class dataScrapper{
                     //cout<< genre<<endl;
                     bg[title].insert(genre);
                     bg1.insert(title,genre);
-                    cout<<"adding "<< title<<" : "<< genre<<endl;
+                    //cout<<"adding "<< title<<" : "<< genre<<endl;
                     gb[genre].insert(title);
                     gb1.insert(genre,title);
-                    cout<<"adding "<< genre<<" : "<< title<<endl;
+                    //cout<<"adding "<< genre<<" : "<< title<<endl;
                 }
 
                 line = "";
