@@ -12,7 +12,6 @@ class Ordered_Map {
 private:
     class TreeNode {
     public:
-//        string id;
         string name;
         set<string> values;
         int height = 1;
@@ -27,18 +26,16 @@ private:
     TreeNode* rotateLeft(TreeNode* grandparent);
     TreeNode* rotateRight(TreeNode* grandparent);
     Ordered_Map::TreeNode* helperInsert(TreeNode* helpRoot, const string& name);
-    set<string>* searchNameExists(TreeNode* helpRoot, const string& name);
-    set<string>* bracketSearchName(Ordered_Map::TreeNode *helpRoot, const string& name);
+    set<string>* searchName(Ordered_Map::TreeNode *helpRoot, const string& name);
     int bf(TreeNode* node);
     int findHeight(TreeNode* node);
+    bool helperIsValid(TreeNode* helpRoot, const string& name);
 
 //commands accessed by main!!
 public:
     ~Ordered_Map();
-    bool success = true;
-    void insert(const string& value); //void return type, will just insert value into map key
-    set<string> findValues(const string& name); //returns the set of values for this name
     set<string>& operator[](const string& name);
+    bool isValid(const string& name);
 };
 
 
