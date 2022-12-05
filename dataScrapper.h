@@ -9,7 +9,6 @@ class dataScrapper{
     public : 
 
         void parseFile(ifstream& inputFile, string filename, Ordered_Map& bg, Ordered_Map& gb,unordered_map& bg1,  unordered_map& gb1 ){
-
             inputFile.open(filename);
             string line = "";
             // ignore the title of the column title of the csv file
