@@ -3,11 +3,20 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <map>
+#include "dataScrapper.h"
 #include <set>
 using namespace std;
 
 int main(){
+
+   // map<string, set<string>> bg;
+   // initialize ordered map 
+    Ordered_Map bg;
+    Ordered_Map gb;
+    // initialize unordred map
+    unordered_map bg1;
+    unordered_map gb1;
+    
     // open file
     ifstream inputFile;
     // windows file path
@@ -15,63 +24,17 @@ int main(){
     // mac file path
     string filename = "./books1.csv";
     cout<<"opening file"<<endl;
-    inputFile.open(filename);
+    // parse the csv file
+    dataScrapper csv;
+    csv.parseFile(inputFile,filename,bg,gb,bg1,gb1);
 
-    // ordered map with the title as a key and a set of generes as the value
-    map<string, set<string>> bg;
-    // ordred map with genre as a key and a set of books as the value
-    map<string, set<string>> gb;
-
-    string line = "";
-    // ignore the title of the column title of the csv file
-    getline(inputFile, line);
-
-    while(getline(inputFile,line)){
-        string title = "";
-        string genre = "";
-        
-        stringstream inputstring(line);
-        getline(inputstring, title, ',');
-
-        //cout<< title<<endl;
-
-        getline(inputstring, genre, '[');
-        getline(inputstring, genre, ']');
-
-        //cout<< genre<<endl;
-
-        stringstream genres(genre);
-
-         // get first genre since there is no space before the comma
-        getline(genres, genre, ',');
-        genre = genre.substr(1,genre.length()-2);
-        //cout<< genre<<endl;
-        // add genre to map bg
-        bg[title].insert(genre);
-        cout<<"adding "<< title<<" : "<< genre<<endl;
-        // add book title to gb
-        gb[genre].insert(title);
-        cout<<"adding "<< genre<<" : "<< title<<endl;
-        // get remaining genres
-        while(getline(genres, genre, ',')){
-
-            genre = genre.substr(2,genre.length()-3);
-            //cout<< genre<<endl;
-            bg[title].insert(genre);
-            cout<<"adding "<< title<<" : "<< genre<<endl;
-            gb[genre].insert(title);
-            cout<<"adding "<< genre<<" : "<< title<<endl;
-        }
-
-        line = "";
-    }
-    
     vector<string> related_book;
     // test case 1 : find related book to The Hunger Games with a threshold of 3
     // soluton: Harry Potter, 
 
     string source_book = "The Hunger Games";
-    set<string> source_set = bg[source_book];
+   // set<string> source_set = bg[source_book];
+    set<string> source_set = bg1.get_set(source_book);
     set<string> visted;
     visted.insert(source_book);
     int threshold = 3;
@@ -85,12 +48,14 @@ int main(){
                 // add that book to visited
 
     for( auto g : source_set){
-       set<string> s1 = gb[g];
+       //set<string> s1 = gb[g];
+       set<string> s1 = gb1.get_set(g);
        for(auto b : s1){
         if(visted.count(b) == 0){
             // perform a set intersection between the two books' genres
             int intersectCount = 0;
-            set<string>s2 = bg[b];
+            //set<string>s2 = bg[b];
+            set<string> s2 = bg1.get_set(b);
             for(auto g2 : s2){
                 if(source_set.count(g2)>0){
                     intersectCount++;
@@ -105,7 +70,8 @@ int main(){
     }
 
     // printing out the related books
-    cout<<"The books that are related to "<<source_book<<" are: "<<endl;
+    //cout<<"The books that are related to "<<source_book<<" are using ordered map: "<<endl;
+    cout<<"The books that are related to "<<source_book<<" are using ordered map: "<<endl;
     for(int i = 0; i<related_book.size(); i++){
         cout<<related_book[i]<<endl;
     }
