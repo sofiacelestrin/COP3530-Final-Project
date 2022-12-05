@@ -71,6 +71,7 @@ int Ordered_Map::findHeight(TreeNode* node){
     }
 }
 
+//Returns the balanced factor
 int Ordered_Map::bf(TreeNode* node){
     //find balance factor
     if (node == nullptr){
@@ -81,44 +82,8 @@ int Ordered_Map::bf(TreeNode* node){
     }
 }
 
-//search name helper function
-set<string>* Ordered_Map::searchNameExists(Ordered_Map::TreeNode *helpRoot, const string& name) {
-    //get names in preorder order and return in a set, to then be printed out by function calling this one
-    if(helpRoot == nullptr)
-        return nullptr;
-    else
-    {
-        //root.. only add to the set if it is a node we want based on name input/parameter
-        if (helpRoot->name == name){
-            return &helpRoot->values;
-        }
-        //left
-        else if (name < helpRoot->name)
-            return searchNameExists(helpRoot->left, name);
-            //if node name is bigger than that of the roots
-        else
-            return searchNameExists(helpRoot->right, name);
-    }
-}
-
-set<string> Ordered_Map::findValues(const string &name) {
-    set<string>* items_in_set = searchNameExists(this->root, name);
-
-    //code for debugging !
-//    if (items_in_set == nullptr) {
-//        cout << "Attemped to searchName for " << name << ": no values for this name found." << endl;
-//    }
-//    else {
-//        set<string>::iterator itr;
-//        for (itr = items_in_set->begin(); itr != items_in_set->end(); itr++)
-//        {
-//            cout << *itr << " ";
-//        }
-//    }
-    return *items_in_set;
-}
-
-set<string>* Ordered_Map::bracketSearchName(Ordered_Map::TreeNode *helpRoot, const string& name){
+//searches if name exists in map
+set<string>* Ordered_Map::searchName(Ordered_Map::TreeNode *helpRoot, const string& name){
     //get names in preorder order and return in a set, to then be printed out by function calling this one
     if(helpRoot == nullptr)
         return nullptr;
@@ -130,10 +95,10 @@ set<string>* Ordered_Map::bracketSearchName(Ordered_Map::TreeNode *helpRoot, con
         }
             //left
         else if (name < helpRoot->name)
-            return searchNameExists(helpRoot->left, name);
+            return searchName(helpRoot->left, name);
             //if node name is bigger than that of the roots
         else
-            return searchNameExists(helpRoot->right, name);
+            return searchName(helpRoot->right, name);
     }
 }
 
@@ -184,14 +149,41 @@ Ordered_Map::TreeNode* Ordered_Map::helperInsert(TreeNode* helpRoot, const strin
 }
 
 set<string>& Ordered_Map::operator[](const string& name){
-    set<string>* pset = bracketSearchName(root, name);
+    set<string>* pset = searchName(root, name);
     if (pset != nullptr){
         return *pset;
     }
     else {
-        //root is nullptr
+        //root is nullptr so add/insert new key
         root = helperInsert(root, name);
-        pset = bracketSearchName(root, name);
+        pset = searchName(root, name);
         return *pset;
     }
+}
+
+//searches for name in tree, returns true if found, false if not found
+bool Ordered_Map::helperIsValid(TreeNode* helpRoot, const string& name){
+    if(helpRoot == nullptr)
+        return false;
+    else
+    if (helpRoot->name == name){
+        return true;
+    }
+        //left
+    else if (name < helpRoot->name)
+        return helperIsValid(helpRoot->left, name);
+        //if node name is bigger than that of the roots
+    else
+        return helperIsValid(helpRoot->right, name);
+}
+
+bool Ordered_Map::isValid(const string& name){
+//commented code here helps with debugging
+    //    if (helperIsValid(this->root, name)){
+//        cout << "true" << endl;
+//    }
+//    else {
+//        cout << "false" << endl;
+//    }
+    return helperIsValid(this->root, name);
 }
