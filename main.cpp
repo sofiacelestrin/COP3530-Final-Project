@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "dataScrapper.h"
+#include "BooksRelated.h"
 #include <set>
 using namespace std;
 
@@ -28,53 +28,46 @@ int main(){
     dataScrapper csv;
     csv.parseFile(inputFile,filename,bg,gb,bg1,gb1);
 
-    vector<string> related_book;
-    // test case 1 : find related book to The Hunger Games with a threshold of 3
-    // soluton: Harry Potter, 
+    // start of user interface using the command line
+    string source_book = "";
+    int threshold;
+    int menuOption;
+    bool menu = true;
 
-    string source_book = "The Hunger Games";
-   // set<string> source_set = bg[source_book];
-    set<string> source_set = bg1.get_set(source_book);
-    set<string> visted;
-    visted.insert(source_book);
-    int threshold = 3;
+    while(menu){
+        cout<<"Welcome to Book Finder !!!"<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<"Plese enter a book title: ";
+        cin>> source_book;
+        cout<<endl;
+        cout<<"Please enter a threshold of genre similiarity from 1-5: ";
+        cin>>threshold;
+        cout<<endl;
 
-// set intersection logic : 
-    // for each genre in source
-        // for each book in that genre
-            // check if that book has not been visted
-                // perform a set intersection with the source set
-                    // if the result is >= 3 then add the book to the result vector
-                // add that book to visited
+        cout<<"Menu:"<<endl;
+        cout<<"1). Search with an Ordered Map"<<endl;
+        cout<<"2). Search with an Unordered Map"<<endl;
+        cout<<"3). Compare two map types"<<endl;
+        cout<<"4). Insert a different book"<<endl;
+        cout<<"5). Search with an Ordered Map"<<endl;
 
-    for( auto g : source_set){
-       //set<string> s1 = gb[g];
-       set<string> s1 = gb1.get_set(g);
-       for(auto b : s1){
-        if(visted.count(b) == 0){
-            // perform a set intersection between the two books' genres
-            int intersectCount = 0;
-            //set<string>s2 = bg[b];
-            set<string> s2 = bg1.get_set(b);
-            for(auto g2 : s2){
-                if(source_set.count(g2)>0){
-                    intersectCount++;
-                }
-            }
-            if(intersectCount>=threshold){
-                related_book.push_back(b);
-            }
-            visted.insert(b);
+        switch (menuOption){
+            case 1:
+    
         }
-       }
-    }
 
-    // printing out the related books
-    //cout<<"The books that are related to "<<source_book<<" are using ordered map: "<<endl;
-    cout<<"The books that are related to "<<source_book<<" are using ordered map: "<<endl;
-    for(int i = 0; i<related_book.size(); i++){
-        cout<<related_book[i]<<endl;
+
     }
+    
+    
+
+    BooksRelated finder; 
+
+    finder.getBooks(source_book,3,1,bg,gb,bg1,gb1);
+    finder.getBooks(source_book,3,2,bg,gb,bg1,gb1);
+    
+
+
 
     return 0;
 }
