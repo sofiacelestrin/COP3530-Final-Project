@@ -21,7 +21,7 @@ class dataScrapper{
                 stringstream inputstring(line);
                 getline(inputstring, title, ',');
 
-                //cout<< title<<endl;
+                cout<< title<<endl;
 
                 getline(inputstring, genre, '[');
                 getline(inputstring, genre, ']');
@@ -50,10 +50,10 @@ class dataScrapper{
                     //cout<< genre<<endl;
                     bg[title].insert(genre);
                     bg1.insert(title,genre);
-                    //cout<<"adding "<< title<<" : "<< genre<<endl;
+                   // cout<<"adding "<< title<<" : "<< genre<<endl;
                     gb[genre].insert(title);
                     gb1.insert(genre,title);
-                    //cout<<"adding "<< genre<<" : "<< title<<endl;
+                   // cout<<"adding "<< genre<<" : "<< title<<endl;
                 }
 
                 line = "";
