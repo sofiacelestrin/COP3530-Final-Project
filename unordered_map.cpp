@@ -39,7 +39,7 @@ int unordered_map::hash(string key) {
     }
 
     // This next line will reduce the hash to get an index and the function will return that value
-    return index%10;
+    return index%tableSize;
 }
 
 void unordered_map::insert(string key, string value) {
