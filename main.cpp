@@ -44,7 +44,7 @@ int main(){
     // windows file path
     //string filename = "C:\\Users\\mihir\\Downloads\\books1.csv";
     // file path
-    string filename = "./books1.csv";
+    string filename = "./updated_books (1).csv";
     cout<<"opening file"<<endl;
     // parse the csv file
     dataScrapper csv;

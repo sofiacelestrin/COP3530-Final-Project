@@ -13,7 +13,7 @@ class unordered_map{
 private:
 
     // Declaring a size for the table
-    static const int tableSize = 10;
+    static const int tableSize = 150000;
 
     // This is the actual hash table. I created a pair of string and a set of strings since each spot in the array should hold the books name
     // and its genres. I used the list stl in order to create a linked list when there is a collision
